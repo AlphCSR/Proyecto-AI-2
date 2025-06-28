@@ -23,8 +23,8 @@ El proyecto se divide en dos componentes principales:
 ### 1. Clonar el Repositorio
 
 ```bash
-git clone <URL-DEL-REPOSITORIO>
-cd <NOMBRE-DEL-REPOSITORIO>
+git clone https://github.com/AlphCSR/Proyecto-AI-2.git
+cd Proyecto-AI-2
 ```
 
 ### 2. Crear y Activar un Entorno Virtual
