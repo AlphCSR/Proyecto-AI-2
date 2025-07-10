@@ -34,11 +34,21 @@ def main(image_path):
     sentiment_model = None # Reemplazar con el modelo cargado
     sentiment_tokenizer = None # Reemplazar con el tokenizer cargado
 
-    # 2. Realizar detección y reconocimiento de texto con EasyOCR
+    # Cargar la imagen usando OpenCV para una gestión de errores más robusta
+    try:
+        image = cv2.imread(image_path)
+        if image is None:
+            print(f"Error: No se pudo cargar la imagen desde {image_path}. Verifica la ruta y el formato del archivo.")
+            return
+        print(f"Imagen cargada exitosamente. Dimensiones: {image.shape}")
+    except Exception as e:
+        print(f"Error al cargar la imagen con OpenCV: {e}")
+        return
+
     print("Detectando y transcribiendo texto con EasyOCR...")
     try:
         # EasyOCR hace todo el trabajo de detección y reconocimiento
-        results = global_reader.readtext(image_path)
+        results = global_reader.readtext(image)
         print(f"Detectadas {len(results)} entradas de texto.")
     except FileNotFoundError as e:
         print(f"Error: {e}")
