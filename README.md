@@ -47,3 +47,10 @@ Para procesar una nueva imagen, usa el siguiente comando:
 ```bash
 python main.py --image_path /ruta/a/tu/imagen.png
 ```
+
+
+##  Autores
+```
+
+* Cesar Leon 27741713
+* Alejandro Seijas 27426702 

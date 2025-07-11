@@ -5,6 +5,7 @@ tensorflow
 # Image Processing
 opencv-python
 pillow
+easyocr
 
 # Text Processing & Metrics
 jiwer
@@ -24,5 +25,3 @@ seaborn
 jupyter
 ipykernel
 
-# Notebook Environment
-easyocr

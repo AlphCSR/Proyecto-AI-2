@@ -1,10 +1,12 @@
 import argparse
+import tensorflow as tf
+from tensorflow.keras.preprocessing.text import Tokenizer
 import os
 import cv2 
 import numpy as np
-from src.data_loaders import load_iiit5k_data, load_twitter_sentiment_data, image_data_generator, text_data_generator
+#from src.data_loaders import load_iiit5k_data, load_twitter_sentiment_data, image_data_generator, text_data_generator
 # from src.str_model import build_str_model, preprocess_image_for_str, detect_text_regions
-from src.sentiment_model import build_sentiment_model, preprocess_text_for_sentiment, predict_sentiment
+from src.sentiment_model import preprocess_text_for_sentiment, predict_sentiment
 import easyocr
 
 # TODO: Definir estos valores basados en el entrenamiento real
@@ -25,14 +27,28 @@ def main(image_path):
     print(f"Procesando la imagen: {image_path}")
 
     # 1. Cargar modelos (esto debería hacerse una vez al inicio de la aplicación real)
-    # sentiment_model = build_sentiment_model(SENTIMENT_VOCAB_SIZE, SENTIMENT_EMBEDDING_DIM, SENTIMENT_MAX_SEQUENCE_LENGTH, SENTIMENT_NUM_CLASSES)
-    # TODO: Cargar pesos pre-entrenados: str_model.load_weights('path/to/str_weights.h5')
-    # TODO: Cargar pesos pre-entrenados: sentiment_model.load_weights('path/to/sentiment_weights.h5')
-    # TODO: Cargar tokenizer de sentimiento: sentiment_tokenizer = load_tokenizer('path/to/tokenizer.pkl')
+    model_save_dir = 'src'
+    model_save_path = os.path.join(model_save_dir, 'sentiment_model.keras')
+    if os.path.exists(model_save_path):
+        print(f"Loading the model from: {model_save_path}")
+        try:
+            # Load the model
+            sentiment_model = tf.keras.models.load_model(model_save_path)
 
-    # Placeholder para modelos y tokenizer cargados
-    sentiment_model = None # Reemplazar con el modelo cargado
-    sentiment_tokenizer = None # Reemplazar con el tokenizer cargado
+            print("Model loaded successfully.")
+
+            # You can optionally print a summary of the loaded model to verify
+            # loaded_model.summary()
+
+        except Exception as e:
+            print(f"An error occurred while loading the model: {e}")
+            sentiment_model = None # Set to None if loading fails
+    else:
+        print(f"Error: Model file not found at {model_save_path}. Please ensure the model has been saved.")
+        sentiment_model = None # Set to None if file not found
+    
+    vocab_size = 10000
+    sentiment_tokenizer = Tokenizer(num_words=vocab_size, oov_token="<unk>")
 
     # Cargar la imagen usando OpenCV para una gestión de errores más robusta
     try:
