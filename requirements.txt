@@ -1,0 +1,27 @@
+
+# Core Deep Learning Framework
+tensorflow
+
+# Image Processing
+opencv-python
+pillow
+easyocr
+
+# Text Processing & Metrics
+jiwer
+nltk
+
+# Data Handling and Scientific Computing
+pandas
+numpy
+scipy
+scikit-learn
+
+# Plotting and Visualization
+matplotlib
+seaborn
+
+# Notebook Environment
+jupyter
+ipykernel
+
